@@ -42,7 +42,7 @@
         var oMin = d3.min(data, function(d) { return d.Other_Sales; });
         console.log("EU Min: " + euMin + "; G Min: " + gMin + "; J Min: " + jMin+ "; NA Min: " + nMin+ "; O Min: " + oMin); //log values
 
-        var euSum = d3.sum(data, function(d){ return d.EU_Sales;}); //set variable as sum from data of a specific column VVV
+        var euSum = d3.sum(data, function(d){ return d.EU_Sales;}); //set variable as sum from data of a specific column VVV https://github.com/d3/d3-array
         euSum = d3.format(".2f")(euSum) //https://github.com/d3/d3/issues/210 //set the same variable to format the output to 2 decimal points. The output for some reason has extra zeros and numbers past 2 decimal points
         var gSum = d3.sum(data, function(d){ return d.Global_Sales;});
         gSum = d3.format(".2f")(gSum) //https://github.com/d3/d3/issues/210
@@ -54,6 +54,20 @@
         oSum = d3.format(".2f")(oSum) //https://github.com/d3/d3/issues/210
         console.log("EU Sum: " + euSum + "; G Sum: " + gSum + "; J Sum: " + jSum + "; NA Sum: " + nSum + "; O Sum: " + oSum); //log the sums
         //console.log(testSum);
+
+        var euMean = d3.mean(data, function(d){return d.EU_Sales});//set variable as mean from data of a specific column VVV https://github.com/d3/d3-array
+        euMean = d3.format(".9f")(euMean) //https://github.com/d3/d3/issues/210 set the same variable to format the output to 9 decimal points. The output for some reason has extra zeros and numbers past 9 decimal points
+        var gMean = d3.mean(data, function(d){ return d.Global_Sales;});
+        gMean = d3.format(".9f")(gMean) //https://github.com/d3/d3/issues/210
+        var jMean = d3.mean(data, function(d){ return d.JP_Sales;});
+        jMean = d3.format(".8f")(jMean) //https://github.com/d3/d3/issues/210
+        var nMean = d3.mean(data, function(d){ return d.NA_Sales;});
+        nMean = d3.format(".8f")(nMean) //https://github.com/d3/d3/issues/210
+        var oMean = d3.mean(data, function(d){ return d.Other_Sales;});
+        oMean = d3.format(".8f")(oMean) //https://github.com/d3/d3/issues/210
+        console.log("EU Mean: " + euMean + "; G Mean: " + gMean + "; J Mean: " + jMean + "; NA Mean: " + nMean + "; O Mean: " + oMean); //log the mean
+        //console.log(testSum);
+
 
         //for(var i = 0; i < d.EU_Sales(data).length; i++)
     d3.select("body") //select the body
@@ -100,6 +114,20 @@
             .text("Sum North America Sales: " + nSum)
             .append("p")
             .text("Sum Other Sales: " + oSum)
+
+            .append("p")
+            .style("margin-top", "50px") //add margin space between lines to separate section
+            .text("MEAN OF VALUES BY CATEGORY")
+            .append("p")
+            .text("Mean EU Sales: " + euMean) //set text to show mean of sales of variable VVVV
+            .append("p")
+            .text("Mean Global Sales: " + gMean)
+            .append("p")
+            .text("Mean Japan Sales: " + jMean)
+            .append("p")
+            .text("Mean North America Sales: " + nMean)
+            .append("p")
+            .text("Mean Other Sales: " + oMean)
 
 
 

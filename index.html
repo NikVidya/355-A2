@@ -5,119 +5,111 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
+    <script src="NickScript.js"></script>
 
     <title>Video Game Sales</title>
+
+    <script>
+        // vv this is Andrey's script vv
+        d3.csv("data/vgsales.csv", function (data) { //load data and execute function
+            // console.log("length: " + data.length)
+            //console.log(data[0]);
+            //>>>>> data from https://www.kaggle.com/gregorut/videogamesales <<<<<<
+            data.forEach(function (d) { //for each row, convert string numbers to actual numbers
+                d.Rank = +d.Rank;
+                d.EU_Sales = +d.EU_Sales;
+                d.Global_Sales = +d.Global_Sales;
+                d.JP_Sales = +d.JP_Sales;
+                d.NA_Sales = +d.NA_Sales;
+                d.Other_Sales = +d.Other_Sales;
+
+            });
+            console.log("loaded data: " + data[0]); //log first row
+            //var max = d3.max(d.column1);
+            var euMax = d3.max(data, function (d) { return d.EU_Sales; }); //grab the max value from column VVVVVVV https://github.com/d3/d3-array
+            var gMax = d3.max(data, function (d) { return d.Global_Sales; });
+            var jMax = d3.max(data, function (d) { return d.JP_Sales; });
+            var nMax = d3.max(data, function (d) { return d.NA_Sales; });
+            var oMax = d3.max(data, function (d) { return d.Other_Sales; });
+            console.log("EU max: " + euMax + "; G Max: " + gMax + "; J Max: " + jMax + "; NA Max: " + nMax + "; O Max: " + oMax); //log answers
+
+            var euMin = d3.min(data, function (d) { return d.EU_Sales; }); //grab minimum value from column VVV https://github.com/d3/d3-array
+            var gMin = d3.min(data, function (d) { return d.Global_Sales; });
+            var jMin = d3.min(data, function (d) { return d.JP_Sales; });
+            var nMin = d3.min(data, function (d) { return d.NA_Sales; });
+            var oMin = d3.min(data, function (d) { return d.Other_Sales; });
+            console.log("EU Min: " + euMin + "; G Min: " + gMin + "; J Min: " + jMin + "; NA Min: " + nMin + "; O Min: " + oMin); //log values
+
+            var euSum = d3.sum(data, function (d) { return d.EU_Sales; }); //set variable as sum from data of a specific column VVV
+            euSum = d3.format(".2f")(euSum) //https://github.com/d3/d3/issues/210 //set the same variable to format the output to 2 decimal points. The output for some reason has extra zeros and numbers past 2 decimal points
+            var gSum = d3.sum(data, function (d) { return d.Global_Sales; });
+            gSum = d3.format(".2f")(gSum) //https://github.com/d3/d3/issues/210
+            var jSum = d3.sum(data, function (d) { return d.JP_Sales; });
+            jSum = d3.format(".2f")(jSum) //https://github.com/d3/d3/issues/210
+            var nSum = d3.sum(data, function (d) { return d.NA_Sales; });
+            nSum = d3.format(".2f")(nSum) //https://github.com/d3/d3/issues/210
+            var oSum = d3.sum(data, function (d) { return d.Other_Sales; });
+            oSum = d3.format(".2f")(oSum) //https://github.com/d3/d3/issues/210
+            console.log("EU Sum: " + euSum + "; G Sum: " + gSum + "; J Sum: " + jSum + "; NA Sum: " + nSum + "; O Sum: " + oSum); //log the sums
+            //console.log(testSum);
+
+            //for(var i = 0; i < d.EU_Sales(data).length; i++)
+            d3.select("body") //select the body
+                //.selectAll(null)
+                //.data(data)
+                //.enter()
+                .append("p") //create a paragraph
+                .text("MAX VALUES OF SALES BY CATEGORY")
+                .append("p") //create a paragraph
+                .text("Max EU Sales: " + euMax) //set text to show max sales of variable VVVV
+                .append("p")
+                .text("Max Global Sales: " + gMax)
+                .append("p")
+                .text("Max Japan Sales: " + jMax)
+                .append("p")
+                .text("Max North America Sales: " + nMax)
+                .append("p")
+                .text("Max Other Sales: " + oMax)
+
+                .append("p")
+                .style("margin-top", "50px") //add margin space between lines to separate section
+                .text("MIN VALUES OF SALES BY CATEGORY")
+                .append("p")
+                .text("Min EU Sales: " + oMin) //set text to show min sales of variable VVVV
+                .append("p")
+                .text("Min Global Sales: " + gMin)
+                .append("p")
+                .text("Min Japan Sales: " + jMin)
+                .append("p")
+                .text("Min North America Sales: " + nMin)
+                .append("p")
+                .text("Min Other Sales: " + oMin)
+
+                .append("p")
+                .style("margin-top", "50px") //add margin space between lines to separate section
+                .text("SUM OF VALUES BY CATEGORY")
+                .append("p")
+                .text("Sum EU Sales: " + euSum) //set text to show sum of sales of variable VVVV
+                .append("p")
+                .text("Sum Global Sales: " + gSum)
+                .append("p")
+                .text("Sum Japan Sales: " + jSum)
+                .append("p")
+                .text("Sum North America Sales: " + nSum)
+                .append("p")
+                .text("Sum Other Sales: " + oSum)
+        });
+    // ^^ End of Andrey's Script ^^
+    </script>
 </head>
 
-<script>
-// vv this is Andrey's script vv
-    d3.csv("data/vgsales.csv", function(data) { //load data and execute function
-        // console.log("length: " + data.length)
-        //console.log(data[0]);
-        //>>>>> data from https://www.kaggle.com/gregorut/videogamesales <<<<<<
-        data.forEach(function (d) { //for each row, convert string numbers to actual numbers
-            d.Rank = +d.Rank;
-            d.EU_Sales = +d.EU_Sales;
-            d.Global_Sales = +d.Global_Sales;
-            d.JP_Sales = +d.JP_Sales;
-            d.NA_Sales = +d.NA_Sales;
-            d.Other_Sales = +d.Other_Sales;
-
-        });
-        console.log("loaded data: "+data[0]); //log first row
-        //var max = d3.max(d.column1);
-        var euMax = d3.max(data, function(d) { return d.EU_Sales; }); //grab the max value from column VVVVVVV https://github.com/d3/d3-array
-        var gMax = d3.max(data, function(d) { return d.Global_Sales; });
-        var jMax = d3.max(data, function(d) { return d.JP_Sales; });
-        var nMax = d3.max(data, function(d) { return d.NA_Sales; });
-        var oMax = d3.max(data, function(d) { return d.Other_Sales; });
-        console.log("EU max: " + euMax + "; G Max: " + gMax + "; J Max: " + jMax+ "; NA Max: " + nMax + "; O Max: " + oMax); //log answers
-
-        var euMin = d3.min(data, function(d) { return d.EU_Sales; }); //grab minimum value from column VVV https://github.com/d3/d3-array
-        var gMin = d3.min(data, function(d) { return d.Global_Sales; });
-        var jMin = d3.min(data, function(d) { return d.JP_Sales; });
-        var nMin = d3.min(data, function(d) { return d.NA_Sales; });
-        var oMin = d3.min(data, function(d) { return d.Other_Sales; });
-        console.log("EU Min: " + euMin + "; G Min: " + gMin + "; J Min: " + jMin+ "; NA Min: " + nMin+ "; O Min: " + oMin); //log values
-
-        var euSum = d3.sum(data, function(d){ return d.EU_Sales;}); //set variable as sum from data of a specific column VVV
-        euSum = d3.format(".2f")(euSum) //https://github.com/d3/d3/issues/210 //set the same variable to format the output to 2 decimal points. The output for some reason has extra zeros and numbers past 2 decimal points
-        var gSum = d3.sum(data, function(d){ return d.Global_Sales;});
-        gSum = d3.format(".2f")(gSum) //https://github.com/d3/d3/issues/210
-        var jSum = d3.sum(data, function(d){ return d.JP_Sales;});
-        jSum = d3.format(".2f")(jSum) //https://github.com/d3/d3/issues/210
-        var nSum = d3.sum(data, function(d){ return d.NA_Sales;});
-        nSum = d3.format(".2f")(nSum) //https://github.com/d3/d3/issues/210
-        var oSum = d3.sum(data, function(d){ return d.Other_Sales;});
-        oSum = d3.format(".2f")(oSum) //https://github.com/d3/d3/issues/210
-        console.log("EU Sum: " + euSum + "; G Sum: " + gSum + "; J Sum: " + jSum + "; NA Sum: " + nSum + "; O Sum: " + oSum); //log the sums
-        //console.log(testSum);
-
-        //for(var i = 0; i < d.EU_Sales(data).length; i++)
-    d3.select("body") //select the body
-        //.selectAll(null)
-        //.data(data)
-        //.enter()
-            .append("p") //create a paragraph
-            .text("MAX VALUES OF SALES BY CATEGORY")
-            .append("p") //create a paragraph
-            .text("Max EU Sales: " + euMax) //set text to show max sales of variable VVVV
-            .append("p")
-            .text("Max Global Sales: " + gMax)
-            .append("p")
-            .text("Max Japan Sales: " + jMax)
-            .append("p")
-            .text("Max North America Sales: " + nMax)
-            .append("p")
-            .text("Max Other Sales: " + oMax)
-
-            .append("p")
-            .style("margin-top", "50px") //add margin space between lines to separate section
-            .text("MIN VALUES OF SALES BY CATEGORY")
-            .append("p")
-            .text("Min EU Sales: " + oMin) //set text to show min sales of variable VVVV
-            .append("p")
-            .text("Min Global Sales: " + gMin)
-            .append("p")
-            .text("Min Japan Sales: " + jMin)
-            .append("p")
-            .text("Min North America Sales: " + nMin)
-            .append("p")
-            .text("Min Other Sales: " + oMin)
-
-            .append("p")
-            .style("margin-top", "50px") //add margin space between lines to separate section
-            .text("SUM OF VALUES BY CATEGORY")
-            .append("p")
-            .text("Sum EU Sales: " + euSum) //set text to show sum of sales of variable VVVV
-            .append("p")
-            .text("Sum Global Sales: " + gSum)
-            .append("p")
-            .text("Sum Japan Sales: " + jSum)
-            .append("p")
-            .text("Sum North America Sales: " + nSum)
-            .append("p")
-            .text("Sum Other Sales: " + oSum)
-
-
-
-
-
-
-
-    });
-
-
-
-    // ^^ End of Andrey's Script ^^
-</script>
-<script></script>
 <body>
-<h1>Video Game Sales Data 1</h1>
-<div></div>
-<div></div>
+    <h1>Video Game Sales Data 1</h1>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
 </body>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
-    <script src="2014-15Script.js"></script>
+
 </html>

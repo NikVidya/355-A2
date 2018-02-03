@@ -53,6 +53,30 @@
         console.log("EU Sum: " + euSum + "; G Sum: " + gSum + "; J Sum: " + jSum + "; NA Sum: " + nSum + "; O Sum: " + oSum); //log the sums
         //console.log(testSum);
 
+        var euMean = d3.mean(data, function(d){return d.EU_Sales});//set variable as mean from data of a specific column VVV https://github.com/d3/d3-array
+        euMean = d3.format(".9f")(euMean) //https://github.com/d3/d3/issues/210 set the same variable to format the output to 9 decimal points. The output for some reason has extra zeros and numbers past 9 decimal points
+        var gMean = d3.mean(data, function(d){ return d.Global_Sales;});
+        gMean = d3.format(".9f")(gMean) //https://github.com/d3/d3/issues/210
+        var jMean = d3.mean(data, function(d){ return d.JP_Sales;});
+        jMean = d3.format(".8f")(jMean) //https://github.com/d3/d3/issues/210
+        var nMean = d3.mean(data, function(d){ return d.NA_Sales;});
+        nMean = d3.format(".8f")(nMean) //https://github.com/d3/d3/issues/210
+        var oMean = d3.mean(data, function(d){ return d.Other_Sales;});
+        oMean = d3.format(".8f")(oMean) //https://github.com/d3/d3/issues/210
+        console.log("EU Mean: " + euMean + "; G Mean: " + gMean + "; J Mean: " + jMean + "; NA Mean: " + nMean + "; O Mean: " + oMean); //log the mean
+        //console.log(testSum);
+
+        var nestByPublisher = d3.nest() //create a nested array. Modified from: http://learnjsdata.com/group_data.html
+            .key(function(d){return d.Publisher; }) //keys are the records in Publisher
+            .rollup(function(v){return v.length}) //rollup result based on the amount of each record
+            //.rollup(function (v){return d3.sum(v, function(d){return d.amount;});})
+            .entries(data); //use the data as entries
+        var ninValue = nestByPublisher[0].value; //the first entry is Nintendo, save the amount of records into variable ninValue
+        console.log("Nin Records: " + ninValue);
+        //console.log(JSON.stringify(nestByPublisher[0]));
+       // console.log(nestByPublisher.length);
+
+
         //for(var i = 0; i < d.EU_Sales(data).length; i++)
         d3.select("body") //select the body
             //.selectAll(null)
@@ -98,6 +122,33 @@
             .text("Sum North America Sales: " + nSum)
             .append("p")
             .text("Sum Other Sales: " + oSum)
+
+            .append("p")
+            .style("margin-top", "50px") //add margin space between lines to separate section
+            .text("MEAN OF VALUES BY CATEGORY")
+            .append("p")
+            .text("Mean EU Sales: " + euMean) //set text to show mean of sales of variable VVVV
+            .append("p")
+            .text("Mean Global Sales: " + gMean)
+            .append("p")
+            .text("Mean Japan Sales: " + jMean)
+            .append("p")
+            .text("Mean North America Sales: " + nMean)
+            .append("p")
+            .text("Mean Other Sales: " + oMean)
+
+            .append("p")
+            .style("margin-top", "50px") //add margin space between lines to separate section
+            .text("NUMBER OF RECORDS IN 'PUBLISHER'")
+            .append("p")
+            .text("Records Matching 'Nintendo': " + ninValue) //set text to show number of records of Publisher that is Nintendo of VVVV
+
+
+
+
+
+
+
     });
     // ^^ End of Andrey's Script ^^
 </script>
@@ -109,5 +160,6 @@
     <div></div>
     <a href="https://www.kaggle.com/egrinstein/20-years-of-games/data">Link to data source</a>
 </body>
+    <a href="https://www.kaggle.com/gregorut/videogamesales">Video Game Sales Data SOURCE</a> //link to data source
 
 </html>

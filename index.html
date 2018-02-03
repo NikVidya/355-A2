@@ -68,6 +68,16 @@
         console.log("EU Mean: " + euMean + "; G Mean: " + gMean + "; J Mean: " + jMean + "; NA Mean: " + nMean + "; O Mean: " + oMean); //log the mean
         //console.log(testSum);
 
+        var nestByPublisher = d3.nest() //create a nested array. Modified from: http://learnjsdata.com/group_data.html
+            .key(function(d){return d.Publisher; }) //keys are the records in Publisher
+            .rollup(function(v){return v.length}) //rollup result based on the amount of each record
+            //.rollup(function (v){return d3.sum(v, function(d){return d.amount;});})
+            .entries(data); //use the data as entries
+        var ninValue = nestByPublisher[0].value; //the first entry is Nintendo, save the amount of records into variable ninValue
+        console.log("Nin Records: " + ninValue);
+        //console.log(JSON.stringify(nestByPublisher[0]));
+       // console.log(nestByPublisher.length);
+
 
         //for(var i = 0; i < d.EU_Sales(data).length; i++)
     d3.select("body") //select the body
@@ -129,6 +139,12 @@
             .append("p")
             .text("Mean Other Sales: " + oMean)
 
+            .append("p")
+            .style("margin-top", "50px") //add margin space between lines to separate section
+            .text("NUMBER OF RECORDS IN 'PUBLISHER'")
+            .append("p")
+            .text("Records Matching 'Nintendo': " + ninValue) //set text to show number of records of Publisher that is Nintendo of VVVV
+
 
 
 
@@ -147,6 +163,7 @@
 <div></div>
 <div></div>
 </body>
+    <a href="https://www.kaggle.com/gregorut/videogamesales">Video Game Sales Data SOURCE</a> //link to data source
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
     <script src="2014-15Script.js"></script>

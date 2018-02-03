@@ -48,6 +48,28 @@ d3.csv("data/ign.csv", function (data) {
                 break;
             case "Sports":
                 genreCounts[1]++;
+                break;
+            case "Action":
+                genreCounts[2]++;
+                break;
+            case "Adventure":
+                genreCounts[3]++;
+                break;
+            case "Shooter":
+                genreCounts[4]++;
+                break;
+            case "RPG":
+                genreCounts[5]++;
+                break;
+            case "Platformer":
+                genreCounts[6]++;
+                break;
+            case "Fighting":
+                genreCounts[7]++;
+                break;
+            case "Puzzle":
+                genreCounts[7]++;
+                break;
         }
     });
     function average(sum, count) {
@@ -80,12 +102,49 @@ d3.csv("data/ign.csv", function (data) {
     var avgScoreXboxOne = average(scores[8], counts[8]);
     avgScoreXboxOne = d3.format(".2f")(avgScoreXboxOne);
 
+
     console.log("Nintento Gamecube scores should be: " + avgScoreGCN);
     d3.select("body")
         .append("h1")
         .text("IGN Video Game Ratings Data 2");
     d3.select("body") // Oddly formats the paragraph text if done in the same d3.select as the h1
+
         .append("p")
+        .style("margin-top", "50px") //add margin space between lines to separate section
+        .text("MIN SCORES")
+        .append("p")
+        .text(d3.min(data, function (d) { return d.score }))
+
+        .append("p")
+        .style("margin-top", "50px") //add margin space between lines to separate section
+        .text("MAX SCORES")
+        .append("p")
+        .text(d3.max(data, function (d) { return d.score }))
+
+        .append("p")
+        .style("margin-top", "50px") //add margin space between lines to separate section
+        .text("GENRE COUNT")
+        .append("p")
+        .text("Strategy: " + genreCounts[0])
+        .append("p")
+        .text("Sports: " + genreCounts[1])
+        .append("p")
+        .text("Action: " + genreCounts[2])
+        .append("p")
+        .text("Adventure: " + genreCounts[3])
+        .append("p")
+        .text("Shooter: " + genreCounts[4])
+        .append("p")
+        .text("RPG: " + genreCounts[5])
+        .append("p")
+        .text("Platformer: " + genreCounts[6])
+        .append("p")
+        .text("Fighting: " + genreCounts[7])
+        .append("p")
+        .text("Puzzle: " + genreCounts[8])
+
+        .append("p")
+        .style("margin-top", "50px") //add margin space between lines to separate section
         .text("AVERAGE GAME RATINGS PER PLATFORM:")
         .append("p")
         .text("Gamecube: " + avgScoreGCN)
@@ -104,5 +163,11 @@ d3.csv("data/ign.csv", function (data) {
         .append("p")
         .text("Xbox 360: " + avgScoreXbox360)
         .append("p")
-        .text("Xbox One: " + avgScoreXboxOne);
+        .text("Xbox One: " + avgScoreXboxOne)
+
+        .append("p")
+        .style("margin-top", "50px") //add margin space between lines to separate section
+        .text("SUM OF SCORES")
+        .append("p")
+        .text(d3.sum(data, function (d) { return d.score }))
 });

@@ -5,24 +5,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.3/d3.min.js"></script>
-    <script src="NickScript.js"></script>
 
     <title>Video Game Sales</title>
 
 
-<script>
-// vv this is Andrey's script vv
-    d3.csv("data/vgsales.csv", function(data) { //load data and execute function
-        // console.log("length: " + data.length)
-        //console.log(data[0]);
-        //>>>>> data from https://www.kaggle.com/gregorut/videogamesales <<<<<<
-        data.forEach(function (d) { //for each row, convert string numbers to actual numbers
-            d.Rank = +d.Rank;
-            d.EU_Sales = +d.EU_Sales;
-            d.Global_Sales = +d.Global_Sales;
-            d.JP_Sales = +d.JP_Sales;
-            d.NA_Sales = +d.NA_Sales;
-            d.Other_Sales = +d.Other_Sales;
+    <script>
+        // vv this is Andrey's script vv
+        d3.csv("data/vgsales.csv", function (data) { //load data and execute function
+            // console.log("length: " + data.length)
+            //console.log(data[0]);
+            //>>>>> data from https://www.kaggle.com/gregorut/videogamesales <<<<<<
+            data.forEach(function (d) { //for each row, convert string numbers to actual numbers
+                d.Rank = +d.Rank;
+                d.EU_Sales = +d.EU_Sales;
+                d.Global_Sales = +d.Global_Sales;
+                d.JP_Sales = +d.JP_Sales;
+                d.NA_Sales = +d.NA_Sales;
+                d.Other_Sales = +d.Other_Sales;
 
             });
             console.log("loaded data: " + data[0]); //log first row
@@ -101,13 +100,14 @@
                 .text("Sum Other Sales: " + oSum)
         });
     // ^^ End of Andrey's Script ^^
-</script>
-<script src="NicksScript.js"></script>
-<body>
-<h1>Video Game Sales Data 1</h1>
-<div></div>
-<div></div>
-<a href="https://www.kaggle.com/egrinstein/20-years-of-games/data">Link to data source</a>
-</body>
+    </script>
+    <script src="NicksScript.js"></script>
+
+    <body>
+        <h1>Video Game Sales Data 1</h1>
+        <div></div>
+        <div></div>
+        <a href="https://www.kaggle.com/egrinstein/20-years-of-games/data">Link to data source</a>
+    </body>
 
 </html>
